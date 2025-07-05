@@ -30,12 +30,29 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = event.clientY;
 });
 
+// ▼▼▼【ここから追加】スマホのタッチ操作に対応 ▼▼▼
+window.addEventListener('touchmove', (event) => {
+    // 画面のスクロールなど、ブラウザのデフォルトの動きを防止
+    event.preventDefault();
+    if (event.touches.length > 0) {
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+    }
+}, { passive: false });
+
+window.addEventListener('touchstart', (event) => {
+    if (event.touches.length > 0) {
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+    }
+});
+// ▲▲▲【ここまで追加】▲▲▲
+
 // リスタート処理
 restartMessage.addEventListener('click', () => document.location.reload());
 
 // ========== 共有機能 ==========
-// ※注意：このゲームをサーバーにアップロードしたら、以下のURLを実際のゲームURLに変更してください
-const GAME_URL = "https://www.rikkiblog.net/entry/micro_cosmos"; // ★★★ 要変更 ★★★
+const GAME_URL = "https://www.rikkiblog.net/entry/micro_cosmos";
 const GAME_TITLE = "ミクロコスモス・サバイバー";
 const HASH_TAGS = "ブラウザゲーム,ミクロコスモスサバイバー";
 
